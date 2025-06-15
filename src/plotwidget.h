@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QPainter>
+#include <QPainterPath>
 #include <QTimer>
 #include <QVector>
 #include <QPointF>
@@ -57,6 +58,7 @@ private:
     void drawAxes(QPainter& painter);
     void drawGrid(QPainter& painter);
     void drawData(QPainter& painter);
+    void drawDataSeries(QPainter& painter, const QVector<SensorData>& data, const QColor& color);
     void drawLabels(QPainter& painter);
     void drawLegend(QPainter& painter);
     void calculateBounds();
@@ -100,7 +102,7 @@ private:
     // Constants
     static const int MARGIN = 60;
     static const int LEGEND_HEIGHT = 30;
-    static const double DEFAULT_TIME_WINDOW = 30.0; // seconds
+    static constexpr double DEFAULT_TIME_WINDOW = 30.0; // seconds
 };
 
 #endif // PLOTWIDGET_H

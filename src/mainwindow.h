@@ -48,6 +48,9 @@ private slots:
 
 private:
     void setupUI();
+    void setupRealTimeTab();
+    void setupAnalysisTab();
+    void setupComparisonTab();
     void setupMenus();
     void setupStatusBar();
     void setupConnections();

@@ -31,9 +31,8 @@ set(UI_FILES
 )
 
 qt_add_executable(Shockee ${SOURCES} ${HEADERS})
-qt_add_resources(Shockee "resources" FILES icons/shockee.png)
 
-target_link_libraries(Shockee
+target_link_libraries(Shockee PRIVATE
     Qt6::Core
     Qt6::Widgets
     Qt6::SerialPort

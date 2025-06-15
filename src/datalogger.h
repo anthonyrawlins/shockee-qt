@@ -10,6 +10,7 @@
 #include <QDateTime>
 #include <QDir>
 #include <QStandardPaths>
+#include <QPointF>
 
 #include "serialcommunicator.h"
 

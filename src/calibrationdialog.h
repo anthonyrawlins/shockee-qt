@@ -85,7 +85,7 @@ private:
     int m_potMin;
     int m_potMax;
     double m_strokeLengthMm;
-    int m_encoderPPR;
+    int m_encoderPulsesPerRev;
 };
 
 #endif // CALIBRATIONDIALOG_H
