@@ -39,6 +39,7 @@ private slots:
     void stopRecording();
     void saveSession();
     void loadSession();
+    void loadComparisonSession();
     void exportData();
     void showCalibration();
     void onNewDataReceived(const SensorData& data);

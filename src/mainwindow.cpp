@@ -267,7 +267,7 @@ void MainWindow::setupConnections()
     connect(m_overlayCheckbox, &QCheckBox::toggled,
             this, &MainWindow::toggleOverlay);
     connect(m_loadComparisonButton, &QPushButton::clicked,
-            this, &MainWindow::loadSession); // Will load into comparison
+            this, &MainWindow::loadComparisonSession);
     
     // Timers
     connect(m_displayUpdateTimer, &QTimer::timeout,
@@ -373,17 +373,47 @@ void MainWindow::loadSession()
             m_forcePlot->clearData();
             m_encoderPlot->clearData();
             m_forceVsPositionPlot->clearData();
+            m_comparisonPlot->clearData();
             
-            for (const SensorData& data : m_currentSession) {
-                m_positionPlot->addDataPoint(data);
-                m_forcePlot->addDataPoint(data);
-                m_encoderPlot->addDataPoint(data);
-                m_forceVsPositionPlot->addDataPoint(data);
-            }
+            // Add data to main plots
+            QVector<SensorData> dataVector(m_currentSession.begin(), m_currentSession.end());
+            m_positionPlot->addDataSeries(dataVector, session.name);
+            m_forcePlot->addDataSeries(dataVector, session.name);
+            m_encoderPlot->addDataSeries(dataVector, session.name);
+            m_forceVsPositionPlot->addDataSeries(dataVector, session.name);
+            
+            // Add to comparison plot as main dataset
+            m_comparisonPlot->addDataSeries(dataVector, session.name);
             
             statusBar()->showMessage("Session loaded: " + fileName);
         } else {
             QMessageBox::warning(this, "Error", "Failed to load session");
+        }
+    }
+}
+
+void MainWindow::loadComparisonSession()
+{
+    QString fileName = QFileDialog::getOpenFileName(this,
+        "Load Comparison Session", m_dataLogger->getSessionsDirectory(),
+        "Shockee Session Files (*.json)");
+    
+    if (!fileName.isEmpty()) {
+        Session session = m_dataLogger->loadSession(fileName);
+        if (!session.data.isEmpty()) {
+            m_comparisonSession = QList<SensorData>(session.data.begin(), session.data.end());
+            
+            // Add to comparison plot as overlay
+            QVector<SensorData> dataVector(m_comparisonSession.begin(), m_comparisonSession.end());
+            m_comparisonPlot->addOverlayData(dataVector, session.name);
+            
+            // Enable overlay mode automatically
+            m_overlayCheckbox->setChecked(true);
+            m_comparisonPlot->setOverlayMode(true);
+            
+            statusBar()->showMessage("Comparison session loaded: " + fileName);
+        } else {
+            QMessageBox::warning(this, "Error", "Failed to load comparison session");
         }
     }
 }

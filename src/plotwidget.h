@@ -14,6 +14,10 @@
 #include <QBrush>
 #include <QMouseEvent>
 #include <QWheelEvent>
+#include <QLinearGradient>
+#include <QRadialGradient>
+#include <QConicalGradient>
+#include <QtMath>
 
 #include "serialcommunicator.h"
 
@@ -38,6 +42,7 @@ public:
     void setTimeWindow(double seconds);
     void setAutoScale(bool enable);
     void setGridVisible(bool visible);
+    void setPolarMode(bool enable);
     void exportToPdf(const QString& filename);
     void exportToPng(const QString& filename);
     
@@ -59,10 +64,18 @@ private:
     void drawGrid(QPainter& painter);
     void drawData(QPainter& painter);
     void drawDataSeries(QPainter& painter, const QVector<SensorData>& data, const QColor& color);
+    void drawPolarData(QPainter& painter);
+    void drawPolarDataSeries(QPainter& painter, const QVector<SensorData>& data, const QColor& baseColor, double opacity = 1.0);
+    void drawPolarAxes(QPainter& painter);
+    void drawPolarGrid(QPainter& painter);
     void drawLabels(QPainter& painter);
+    void drawPolarLabels(QPainter& painter);
     void drawLegend(QPainter& painter);
+    void drawTitle(QPainter& painter);
     void calculateBounds();
     void updateScales();
+    QColor getViridisColor(double value, double minValue, double maxValue) const;
+    QColor getCividisColor(double value, double minValue, double maxValue) const;
     
     QPointF dataToScreen(double x, double y) const;
     QPointF screenToData(const QPointF& screen) const;
@@ -77,11 +90,15 @@ private:
     bool m_autoScale;
     bool m_gridVisible;
     bool m_overlayMode;
+    bool m_polarMode;
     
     // Bounds and scales
     double m_minX, m_maxX, m_minY, m_maxY;
     double m_scaleX, m_scaleY;
     QRectF m_plotArea;
+    QPointF m_polarCenter;
+    double m_polarRadius;
+    double m_minForce, m_maxForce;
     
     // Interaction
     bool m_isDragging;
