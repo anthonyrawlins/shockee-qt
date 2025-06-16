@@ -42,12 +42,46 @@ Arduino Uno R3:
 
 ## Installation
 
+### Ubuntu 24.04 LTS (Recommended)
+
+**Quick Install:**
+```bash
+# Build and install .deb package
+./build-ubuntu.sh
+
+# Install the package
+sudo dpkg -i ../shockee_1.0.0-1_amd64.deb
+sudo apt-get install -f  # Fix any dependencies
+
+# Run the application
+shockee
+```
+
+**Manual Dependencies:**
+```bash
+sudo apt update
+sudo apt install qt6-base-dev qt6-serialport-dev libqt6printsupport6-dev
+```
+
+### macOS
+
+**Using Homebrew:**
+```bash
+brew install qt6 cmake
+```
+
+**Build macOS App Bundle:**
+```bash
+./deploy-macos.sh
+# Creates Shockee.app and .dmg installer
+```
+
 ### Arduino Sketch
 1. Install the HX711 library in Arduino IDE
 2. Upload `arduino/shockee_sensors.ino` to your Arduino Uno R3
 3. Connect sensors according to the wiring diagram
 
-### Qt Application
+### Qt Application (From Source)
 ```bash
 git clone https://github.com/yourusername/shockee-qt.git
 cd shockee-qt
