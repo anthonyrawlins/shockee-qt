@@ -1,0 +1,40 @@
+Source: shockee
+Section: electronics
+Priority: optional
+Maintainer: Shockee Development <dev@shockee.com>
+Build-Depends: debhelper-compat (= 13),
+               cmake (>= 3.16),
+               qt6-base-dev,
+               qt6-serialport-dev,
+               libqt6printsupport6-dev,
+               pkg-config
+Standards-Version: 4.6.2
+Homepage: https://github.com/shockee/dyno
+Vcs-Git: https://github.com/shockee/dyno.git
+Vcs-Browser: https://github.com/shockee/dyno
+
+Package: shockee
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends},
+         libqt6core6,
+         libqt6widgets6,
+         libqt6serialport6,
+         libqt6printsupport6
+Recommends: arduino-mk,
+            shockee-simulator
+Suggests: libreoffice-calc
+Description: Motorcycle suspension dyno testing software
+ Shockee is a comprehensive motorcycle suspension testing application
+ that works with Arduino-based dyno hardware to provide real-time
+ analysis of suspension performance.
+ .
+ Features include:
+  * Real-time data collection from Arduino sensors
+  * Load cell, position, and encoder measurements
+  * Velocity calculations and damping analysis
+  * Session recording and data export
+  * Comparison charts and analysis tools
+  * Calibration utilities for sensor accuracy
+ .
+ The application communicates with Arduino Uno R3 hardware at 9600 baud
+ to collect sensor data at 100Hz for professional suspension tuning.

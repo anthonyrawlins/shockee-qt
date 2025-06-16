@@ -31,6 +31,10 @@ MainWindow::MainWindow(QWidget *parent)
     // Load serial ports
     m_serialPortCombo->addItems(m_serialComm->getAvailablePorts());
     
+    // Add common virtual port patterns for testing
+    m_serialPortCombo->addItem("/tmp/ttyV1 (Virtual)");
+    m_serialPortCombo->lineEdit()->setPlaceholderText("Select or type port (e.g., /tmp/ttyV1)");
+    
     resetDisplay();
 }
 
@@ -82,6 +86,7 @@ void MainWindow::setupRealTimeTab()
     
     connLayout->addWidget(new QLabel("Serial Port:"), 0, 0);
     m_serialPortCombo = new QComboBox();
+    m_serialPortCombo->setEditable(true); // Allow manual entry for virtual ports
     connLayout->addWidget(m_serialPortCombo, 0, 1);
     
     m_connectButton = new QPushButton("Connect");
@@ -282,6 +287,11 @@ void MainWindow::connectToArduino()
     if (portName.isEmpty()) {
         QMessageBox::warning(this, "Error", "Please select a serial port");
         return;
+    }
+    
+    // Clean up port name if it has description
+    if (portName.contains(" (Virtual)")) {
+        portName = portName.split(" ").first();
     }
     
     if (m_serialComm->connectToPort(portName)) {

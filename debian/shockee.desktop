@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Shockee
+Comment=Motorcycle suspension dyno testing software
+GenericName=Suspension Dyno
+Exec=shockee
+Icon=shockee
+Terminal=false
+Categories=Engineering;Electronics;Science;
+Keywords=suspension;motorcycle;dyno;arduino;testing;sensors;
+StartupNotify=true
+StartupWMClass=Shockee

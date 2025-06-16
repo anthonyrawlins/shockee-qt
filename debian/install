@@ -1,0 +1,4 @@
+build/Shockee usr/bin/shockee
+README.md usr/share/doc/shockee/
+arduino/shockee_sensors.ino usr/share/doc/shockee/arduino/
+sessions/*.json usr/share/shockee/sessions/
