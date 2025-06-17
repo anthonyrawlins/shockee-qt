@@ -41,7 +41,7 @@ set_target_properties(Shockee PROPERTIES
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION}
     MACOSX_BUNDLE_LONG_VERSION_STRING "${PROJECT_VERSION} - Suspension Dyno"
     MACOSX_BUNDLE_INFO_STRING "Shockee Motorbike Suspension Dyno Software"
-    MACOSX_BUNDLE_COPYRIGHT "© 2024 Shockee Dyno"
+    MACOSX_BUNDLE_COPYRIGHT "© 2024 Anthony Rawlins"
 )
 
 target_link_libraries(Shockee PRIVATE
